@@ -1,0 +1,52 @@
+.header {
+    grid-area: h;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.header .headerLogo {
+    display: flex;
+}
+
+.header .headerLogo img {
+    width: 70px;
+    height: 70px;
+}
+
+
+.header .headerLinks {
+    width: 600px;
+}
+
+.header .headerLinks ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .headerLinks ul li {
+    list-style-type: none;
+}
+
+.header .headerLinks ul li a{
+    text-decoration: none;
+    font-family: Arial;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: black;
+}
+
+.header .headerLinks ul li a:hover {
+    color: brown;
+    border-bottom: 3px solid #F1CDB3;
+}
+
+
+
+
+
+
+
+
