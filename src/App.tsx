@@ -6,14 +6,13 @@ import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import Music from "./components/Music/Music";
 import {BrowserRouter, Route} from 'react-router-dom';
-import {DialogsPageType, ProfilePageType} from "./redux/state";
+import {ActionsType, DialogsPageType, ProfilePageType} from "./redux/state";
 
 
 type AppPropsType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
-    addPost: (text: string) => void
-    updateNewPostText: (text: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 
@@ -28,8 +27,7 @@ const App: React.FC<AppPropsType> = (props) => {
                     <Route path="/dialogs" render={() => <Dialogs dialogsPage={props.dialogsPage}/>} />
                     <Route path="/profile" render={() => <Profile
                         profilePage={props.profilePage}
-                        addPost={props.addPost}
-                        updateNewPostText={props.updateNewPostText}
+                        dispatch={props.dispatch}
                     />} />
                     <Route path="/music" component={Music} />
                 </div>

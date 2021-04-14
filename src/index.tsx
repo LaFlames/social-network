@@ -12,8 +12,7 @@ let rerenderEntireTree = () => {
             <App
                 dialogsPage={store.getDialogsState()}
                 profilePage={store.getProfileState()}
-                addPost={store._addPost.bind(store)}
-                updateNewPostText={store._updateNewPostText.bind(store)}
+                dispatch={store.dispatch.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')
