@@ -24,6 +24,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogItemType>
     messages: Array<MessageType>
+    newMessageValue: string
 }
 
 export type RootStateType = {
@@ -31,7 +32,7 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
 }
 
-export type ActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
+export type ActionsType = ReturnType<typeof sendMessageActionCreator> | ReturnType<typeof updateNewMessageTextActionCreator> | ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
 
 export type StoreType = {
     _state: RootStateType
@@ -52,6 +53,18 @@ export let updateNewPostTextActionCreator = (text: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         newText: text
+    } as const
+}
+
+export let updateNewMessageTextActionCreator = (messageText: string) => {
+    return {
+        type: "UPDATE-NEW-MESSAGE-BODY",
+        messageText: messageText
+    } as const
+}
+export let sendMessageActionCreator = () => {
+    return {
+        type: "SEND-NEW-MESSAGE"
     } as const
 }
 
@@ -76,7 +89,8 @@ let store: StoreType = {
                 {id: 1, message: "Yo"},
                 {id: 2, message: "What's gooddie"},
                 {id: 3, message: "Hello"}
-            ]
+            ],
+            newMessageValue: ""
         }
     },
     getProfileState() {
@@ -92,20 +106,6 @@ let store: StoreType = {
         this._callSubscriber = observer
     },
 
-    /*addPost(postMessage: string) {
-        let newPost: PostType = {
-            id: 5,
-            message: postMessage,
-            like: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostValue = ""
-        this._callSubscriber()
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostValue = newText
-        this._callSubscriber()
-    },*/
 
     dispatch(action) {
         switch (action.type) {
@@ -123,57 +123,19 @@ let store: StoreType = {
                 this._state.profilePage.newPostValue = action.newText
                 this._callSubscriber()
                 break
+            case "UPDATE-NEW-MESSAGE-BODY":
+                this._state.dialogsPage.newMessageValue = action.messageText
+                this._callSubscriber()
+                break
+            case "SEND-NEW-MESSAGE":
+                let body = this._state.dialogsPage.newMessageValue
+                this._state.dialogsPage.newMessageValue = ''
+                this._state.dialogsPage.messages.push({id: 4, message: body})
+                this._callSubscriber()
         }
     }
 }
 
-/*let rerenderEntireTree = () => {
-    console.log('State changed!')
-}
 
-
-let state: RootStateType = {
-    profilePage: {
-        posts: [
-            {id: 1, message: "Hello", like: 12},
-            {id: 2, message: "How arr you?", like: 122},
-            {id: 3, message: "Goodbye", like: 81}
-        ],
-        newPostValue: ""
-    },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: "Vitalik"},
-            {id: 2, name: "Kate"},
-            {id: 3, name: "Inna"},
-            {id: 4, name: "Sonya"}
-        ],
-        messages: [
-            {id: 1, message: "Yo"},
-            {id: 2, message: "What's gooddie"},
-            {id: 3, message: "Hello"}
-        ]
-    }
-}*/
-
-/*export let addPost = (postMessage: string) => {
-    let newPost: PostType = {
-        id: 5,
-        message: postMessage,
-        like: 0
-    }
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostValue = ""
-    rerenderEntireTree()
-}*/
-
-/*export let updateNewPostText = (newText: string) => {
-    state.profilePage.newPostValue = newText
-    rerenderEntireTree()
-}*/
-
-/*export const subscribe = (observer: () => void) => {
-    rerenderEntireTree = observer //callback give
-}*/
 
 export default store
