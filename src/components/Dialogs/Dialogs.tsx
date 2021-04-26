@@ -4,10 +4,10 @@ import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import {
     ActionsType,
-    DialogsPageType,
-    sendMessageActionCreator,
-    updateNewMessageTextActionCreator
+    DialogsPageType
 } from "../../redux/state";
+
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/DialogsReducer";
 
 
 type DialogsPropsType = {
