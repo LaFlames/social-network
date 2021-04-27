@@ -3,11 +3,11 @@ import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import Music from "./components/Music/Music";
 import {BrowserRouter, Route} from 'react-router-dom';
 import {ActionsType} from "./redux/redux-store";
 import {AppStateType} from "./redux/redux-store";
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 
 type AppPropsType = {
@@ -16,7 +16,7 @@ type AppPropsType = {
 }
 
 
-const App: React.FC<AppPropsType> = (props) => {
+const App = () => {
 
     return (
         <BrowserRouter>
@@ -24,14 +24,8 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path="/dialogs" render={() => <Dialogs
-                        dialogsPage={props.state.dialogsPage}
-                        dispatch={props.dispatch}
-                    />} />
-                    <Route path="/profile" render={() => <Profile
-                        profilePage={props.state.profilePage}
-                        dispatch={props.dispatch}
-                    />} />
+                    <Route path="/dialogs" render={() => <DialogsContainer/>} />
+                    <Route path="/profile" render={() => <Profile/>} />
                     <Route path="/music" component={Music} />
                 </div>
             </div>;
