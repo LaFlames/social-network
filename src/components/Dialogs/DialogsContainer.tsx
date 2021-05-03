@@ -32,7 +32,7 @@ let mapDispatchToProps = (dispatch: (action: ActionsType) => void): MapDispatchP
     }
 }
 
-export type DialogsContainerType = ReturnType<typeof DialogsContainer>
+
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (Dialogs)
 
 

@@ -7,6 +7,7 @@ import {
     DialogsActionsType,
     DialogsReducer
 } from "./DialogsReducer";
+import {UsersReducer} from "./UsersReducer";
 
 
 export type ActionsType = ProfileActionsType | DialogsActionsType
@@ -17,7 +18,8 @@ export type AppStateType = ReturnType<ReducersType>
 
 let reducers = combineReducers({
     profilePage: ProfileReducer,
-    dialogsPage: DialogsReducer
+    dialogsPage: DialogsReducer,
+    usersPage: UsersReducer
 })
 
 let store = createStore(reducers)

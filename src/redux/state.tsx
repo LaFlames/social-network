@@ -4,6 +4,7 @@ import {
     updateNewPostTextActionCreator
 } from "./ProfileReducer"
 import {DialogsReducer, sendMessageActionCreator, updateNewMessageTextActionCreator} from "./DialogsReducer";
+import {UsersActionsType} from "./UsersReducer";
 
 export type PostType = {
     id: number
@@ -34,7 +35,7 @@ export type RootStateType = {
 
 type DialogsActionsType = ReturnType<typeof sendMessageActionCreator> | ReturnType<typeof updateNewMessageTextActionCreator>
 type ProfileActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
-export type ActionsType = ProfileActionsType | DialogsActionsType
+export type ActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType
 
 export type StoreType = {
     state: RootStateType
