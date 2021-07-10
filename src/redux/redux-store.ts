@@ -7,10 +7,10 @@ import {
     DialogsActionsType,
     DialogsReducer
 } from "./DialogsReducer";
-import {UsersReducer} from "./UsersReducer";
+import {UsersActionsType, UsersReducer} from "./UsersReducer";
 
 
-export type ActionsType = ProfileActionsType | DialogsActionsType
+export type ActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType
 
 
 type ReducersType = typeof reducers

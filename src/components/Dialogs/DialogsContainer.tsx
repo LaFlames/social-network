@@ -1,12 +1,11 @@
 import React from "react";
 import {
-    ActionsType,
-    DialogsPageType, PostType
+    DialogsPageType
 } from "../../redux/state";
 import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/DialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
+import {ActionsType, AppStateType} from "../../redux/redux-store";
 
 type MapStatePropsType = {
     dialogsPage: DialogsPageType

@@ -1,39 +1,48 @@
 import styles from "./users.module.css"
-import {InitialStateType, UserType} from "../../redux/UsersReducer";
+import {UsersInitialStateType, UserType} from "../../redux/UsersReducer";
 import React from "react";
-import {v1} from "uuid";
+import { NavLink } from "react-router-dom";
+import userPhoto from "../../assets/images/unnamed.png";
 
 
 type UsersPropsType = {
-    usersPage: InitialStateType,
+    users: UserType[],
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
     follow: (userId: string) => void,
-    unFollow: (userId: string) => void,
-    setUsers: (users: UserType[]) => void
+    unFollow: (userId: string) => void
+    onPageChanged: (pageNumber: number) => void
 }
+
 
 const Users: React.FC<UsersPropsType> = (props) => {
 
-    if (props.usersPage.users.length === 0) {
-        props.setUsers([
-            {id: v1(),
-                imageUrl: "https://img1.wsimg.com/cdn/Image/All/All/1/All/ef0cf786-ed38-4f39-89b3-7fcaba926b8c/akamai-img-HP-feat-pro_email.jpg?impolicy=cms-feature-module",
-                followed: true, name: "Vitalik", status: "I am a boss", location: {city: "London", country: "England"}},
-            {id: v1(),
-                imageUrl: "https://img1.wsimg.com/cdn/Image/All/All/1/All/ef0cf786-ed38-4f39-89b3-7fcaba926b8c/akamai-img-HP-feat-pro_email.jpg?impolicy=cms-feature-module",
-                followed: true, name: "Kate", status: "I am a bitch", location: {city: "Roma", country: "Italy"}},
-            {id: v1(),
-                imageUrl: "https://img1.wsimg.com/cdn/Image/All/All/1/All/ef0cf786-ed38-4f39-89b3-7fcaba926b8c/akamai-img-HP-feat-pro_email.jpg?impolicy=cms-feature-module",
-                followed: true, name: "Inna", status: "I am a boss as bitch", location: {city: "Minsk", country: "Belarus"}}
-        ])
+
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
     return (
         <div>
+            <div>
+                {pages.map(p => {
+                    return <span
+                        className={ props.currentPage === p ? styles.selected : "" }
+                        onClick={ () => props.onPageChanged(p)}
+                    >{p}</span>
+                })}
+            </div>
             {
-                props.usersPage.users.map(u => <div key={u.id}>
+                props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.imageUrl} className={styles.userPhoto}/>
+                            <NavLink to={"/profile/" + u.id} >
+                                <img  src={ u.photos.small ? u.photos.small : userPhoto } className={styles.userPhoto}/>
+                            </NavLink>
                         </div>
                         <div>
                             { u.followed
@@ -42,17 +51,17 @@ const Users: React.FC<UsersPropsType> = (props) => {
                             }
                         </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.city}</div>
-                            <div>{u.location.country}</div>
+                            <div>{u.id}</div>
+                            <div>u.location.country</div>
                         </span>
                     </span>
-                </div>
+                    </div>
                 )
             }
         </div>

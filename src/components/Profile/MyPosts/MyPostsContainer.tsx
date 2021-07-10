@@ -1,8 +1,8 @@
 import React from "react";
-import {ActionsType, PostType} from "../../../redux/state";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/ProfileReducer";
+import {PostType} from "../../../redux/state";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/ProfileReducer";
 import {connect} from "react-redux";
-import {AppStateType} from "../../../redux/redux-store";
+import {ActionsType, AppStateType} from "../../../redux/redux-store";
 import MyPosts from "./MyPosts";
 
 type MapStatePropsType = {
@@ -23,10 +23,10 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 const mapDispatchToProps = (dispatch: (action: ActionsType) => void): MapDispatchPropsType => {
     return {
         changeNewTextCallback: (text: string) => {
-            dispatch(updateNewPostTextActionCreator(text))
+            dispatch(updateNewPostTextAC(text))
         },
         addPost: (text: string) => {
-            let action = addPostActionCreator(text)
+            let action = addPostAC(text)
             dispatch(action)
         }
     }

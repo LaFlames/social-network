@@ -1,10 +1,16 @@
 import {
-    addPostActionCreator,
+    addPostAC, ProfileActionsType,
     ProfileReducer,
-    updateNewPostTextActionCreator
+    updateNewPostTextAC
 } from "./ProfileReducer"
-import {DialogsReducer, sendMessageActionCreator, updateNewMessageTextActionCreator} from "./DialogsReducer";
+import {
+    DialogsActionsType,
+    DialogsReducer,
+    sendMessageActionCreator,
+    updateNewMessageTextActionCreator
+} from "./DialogsReducer";
 import {UsersActionsType} from "./UsersReducer";
+import {ActionsType} from "./redux-store";
 
 export type PostType = {
     id: number
@@ -33,18 +39,17 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
 }
 
-type DialogsActionsType = ReturnType<typeof sendMessageActionCreator> | ReturnType<typeof updateNewMessageTextActionCreator>
-type ProfileActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
-export type ActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType
 
-export type StoreType = {
+
+
+/*export type StoreType = {
     state: RootStateType
     getProfileState: () => ProfilePageType
     getDialogsState: () => DialogsPageType
     callSubscriber: () => void
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
-}
+}*/
 /*
 
 let store: StoreType = {

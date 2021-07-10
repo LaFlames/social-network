@@ -1,8 +1,8 @@
 import {
-    ActionsType,
     DialogsPageType
 } from "./state";
 import React from 'react';
+import { ActionsType } from "./redux-store";
 
 
 export type DialogsActionsType = ReturnType<typeof sendMessageActionCreator> | ReturnType<typeof updateNewMessageTextActionCreator>
