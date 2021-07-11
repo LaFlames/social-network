@@ -14,7 +14,8 @@ function ProfileInfo(props: any) {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} alt=""/>
-                ava + descr
+                <p>Occupation: {props.profile.lookingForAJobDescription}</p>
+
             </div>
         </div>
     );
