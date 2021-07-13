@@ -3,6 +3,8 @@ import {UsersInitialStateType, UserType} from "../../redux/UsersReducer";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/images/unnamed.png";
+import axios from "axios";
+import {usersApi} from "../../api/api";
 
 
 type UsersPropsType = {
@@ -46,8 +48,24 @@ const Users: React.FC<UsersPropsType> = (props) => {
                         </div>
                         <div>
                             { u.followed
-                                ? <button onClick={() => props.unFollow(u.id)}>Unfollow</button>
-                                : <button onClick={() => props.follow(u.id)}>Follow</button>
+                                ? <button onClick={() => {
+                                    usersApi.unfollowUser(u.id)
+                                        .then(res => {
+                                            if (res.data.resultCode == 0) {
+                                                props.unFollow(u.id)
+                                            }
+                                        })
+                                }
+                                }>Unfollow</button>
+                                : <button onClick={() => {
+                                    usersApi.followUser(u.id)
+                                        .then(res => {
+                                            if (res.data.resultCode == 0) {
+                                                props.follow(u.id)
+                                            }
+                                        })
+                                }
+                                }>Follow</button>
                             }
                         </div>
                     </span>
