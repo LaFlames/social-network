@@ -1,10 +1,9 @@
 import styles from "./users.module.css"
-import {UsersInitialStateType, UserType} from "../../redux/UsersReducer";
+import {UserType} from "../../redux/UsersReducer";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import userPhoto from "../../assets/images/unnamed.png";
-import axios from "axios";
-import {usersApi} from "../../api/api";
+import {usersApi} from "../../api/users-api";
 
 
 type UsersPropsType = {
@@ -49,7 +48,7 @@ const Users: React.FC<UsersPropsType> = (props) => {
                         <div>
                             { u.followed
                                 ? <button onClick={() => {
-                                    usersApi.unfollowUser(u.id)
+                                    usersApi.unFollowUser(u.id)
                                         .then(res => {
                                             if (res.data.resultCode == 0) {
                                                 props.unFollow(u.id)

@@ -8,9 +8,6 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 
 
-
-
-
 const App = () => {
 
     /*let dialogsPage = useSelector<AppStateType, DialogsPageType>(state => state.dialogsPage)

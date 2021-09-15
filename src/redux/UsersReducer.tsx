@@ -1,7 +1,5 @@
-
 import React from 'react';
 import {ActionsType} from "./redux-store";
-
 
 
 export type UsersActionsType = ReturnType<typeof follow>
