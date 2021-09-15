@@ -2,12 +2,14 @@ import React from 'react';
 import {ActionsType} from "./redux-store";
 
 
-export type UsersActionsType = ReturnType<typeof follow>
+export type UsersActionsType =
+    | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setIsFetching>
+    | ReturnType<typeof toggleFollowingProgress>
 
 export type UserPhotoType = {
     small: string | null,
@@ -26,7 +28,8 @@ export type UsersInitialStateType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    followingInProgress: string[]
 }
 
 let initialState: UsersInitialStateType = {
@@ -34,7 +37,8 @@ let initialState: UsersInitialStateType = {
     pageSize: 100,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 
 export const UsersReducer = (state = initialState, action: ActionsType): UsersInitialStateType => {
@@ -82,6 +86,15 @@ export const UsersReducer = (state = initialState, action: ActionsType): UsersIn
                 ...state,
                 isFetching: action.isFetching
             }
+        case "TOGGLE-FOLLOWING-PROGRESS": {
+            return {
+                ...state,
+                followingInProgress:
+                    action.isFetching
+                        ? [...state.followingInProgress, action.userId]
+                        : state.followingInProgress.filter(id => id !== action.userId)
+            }
+        }
         default:
             return state
     }
@@ -123,3 +136,7 @@ export let setIsFetching = (isFetching: boolean) => {
         isFetching
     } as const
 }
+export let toggleFollowingProgress = (isFetching: boolean, userId: string) => ({
+    type: "TOGGLE-FOLLOWING-PROGRESS",
+    isFetching, userId
+} as const)
