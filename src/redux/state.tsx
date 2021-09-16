@@ -1,44 +1,9 @@
+import {ProfileReducer} from "./ProfileReducer"
 import {
-    addPostAC, ProfileActionsType,
-    ProfileReducer,
-    updateNewPostTextAC
-} from "./ProfileReducer"
-import {
-    DialogsActionsType,
     DialogsReducer,
-    sendMessageActionCreator,
-    updateNewMessageTextActionCreator
+    sendMessage,
+    updateNewMessageText
 } from "./DialogsReducer";
-import {UsersActionsType} from "./UsersReducer";
-import {ActionsType} from "./redux-store";
-
-export type PostType = {
-    id: number
-    message: string
-    like: number
-}
-export type MessageType = {
-    id: number
-    message: string
-}
-export type DialogItemType = {
-    id: number
-    name: string
-}
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostValue: string
-}
-export type DialogsPageType = {
-    dialogs: Array<DialogItemType>
-    messages: Array<MessageType>
-    newMessageValue: string
-}
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-}
-
 
 
 

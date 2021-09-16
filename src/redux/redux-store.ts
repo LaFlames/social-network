@@ -1,17 +1,11 @@
-import {createStore, combineReducers} from "redux";
-import {
-    ProfileActionsType,
-    ProfileReducer
-} from "./ProfileReducer";
-import {
-    DialogsActionsType,
-    DialogsReducer
-} from "./DialogsReducer";
-import {UsersActionsType, UsersReducer} from "./UsersReducer";
-import {AuthActionsType, AuthReducer} from "./AuthReducer";
+import {applyMiddleware, createStore, combineReducers} from "redux";
+import {ProfileReducer} from "./ProfileReducer";
+import { DialogsReducer } from "./DialogsReducer";
+import { UsersReducer} from "./UsersReducer";
+import { AuthReducer} from "./AuthReducer";
+import thunkMiddleware from 'redux-thunk'
 
 
-export type ActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType | AuthActionsType
 
 
 type ReducersType = typeof reducers
@@ -24,6 +18,9 @@ let reducers = combineReducers({
     auth: AuthReducer
 })
 
-let store = createStore(reducers)
+let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 export default store
+
+// @ts-ignore
+window.store = store;

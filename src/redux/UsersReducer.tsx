@@ -1,8 +1,8 @@
-import React from 'react';
-import {ActionsType} from "./redux-store";
+import React, {Dispatch} from 'react';
+import {usersApi} from "../api/users-api";
 
 
-export type UsersActionsType =
+type ActionsType =
     | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
     | ReturnType<typeof setUsers>
@@ -140,3 +140,21 @@ export let toggleFollowingProgress = (isFetching: boolean, userId: string) => ({
     type: "TOGGLE-FOLLOWING-PROGRESS",
     isFetching, userId
 } as const)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

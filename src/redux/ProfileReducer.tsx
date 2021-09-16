@@ -1,37 +1,7 @@
 import React from "react";
-import {PostType} from "./state";
 import {UserPhotoType} from "./UsersReducer";
-import {ActionsType} from "./redux-store";
 
 
-export type ProfileActionsType = ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof setUserProfileAC>
-
-export type ProfileType = {
-    aboutMe: string,
-    contacts: {
-        facebook: string,
-        website: null | string,
-        vk: string,
-        twitter: string,
-        instagram: string,
-        youtube: null | string,
-        github: string,
-        mainLink: null | string
-    },
-    lookingForAJob: true,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
-    photos: UserPhotoType
-} | null
-
-export type ProfilePageInitialStateType = {
-    posts: Array<PostType>
-    newPostValue: string
-    profile: ProfileType
-}
 
 let initialState: ProfilePageInitialStateType = {
     posts: [
@@ -70,21 +40,54 @@ export const ProfileReducer = (state = initialState, action: ActionsType): Profi
     }
 }
 
-export let addPostAC = (postMessage: string) => {
+export let addPost = (postMessage: string) => {
     return {
         type: 'ADD-POST',
         postMessage
     } as const
 }
-export let updateNewPostTextAC = (newText: string) => {
+export let updateNewPostText = (newText: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         newText
     } as const
 }
-export let setUserProfileAC = (profile: ProfileType) => {
+export let setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET-USER-PROFILE',
         profile
     } as const
+}
+
+//types
+type ActionsType = ReturnType<typeof addPost>
+    | ReturnType<typeof updateNewPostText>
+    | ReturnType<typeof setUserProfile>
+export type ProfileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: string,
+        website: null | string,
+        vk: string,
+        twitter: string,
+        instagram: string,
+        youtube: null | string,
+        github: string,
+        mainLink: null | string
+    },
+    lookingForAJob: true,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: UserPhotoType
+} | null
+export type PostType = {
+    id: number
+    message: string
+    like: number
+}
+export type ProfilePageInitialStateType = {
+    posts: Array<PostType>
+    newPostValue: string
+    profile: ProfileType
 }
