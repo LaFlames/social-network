@@ -143,6 +143,52 @@ export let toggleFollowingProgress = (isFetching: boolean, userId: string) => ({
 
 
 
+export let getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setIsFetching(true))
+        usersApi.getUsers(currentPage, pageSize)
+            .then(res => {
+                dispatch(setIsFetching(false))
+                dispatch(setUsers(res.data.items))
+                dispatch(setTotalUsersCount(res.data.totalCount))
+            })
+    }
+}
+
+export let getUsersOnPage = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setIsFetching(true))
+        dispatch(setCurrentPage(currentPage))
+        usersApi.getUsers(currentPage, pageSize)
+            .then(res => {
+                dispatch(setIsFetching(false))
+                dispatch(setUsers(res.data.items))
+            })
+    }
+}
+
+export let followUser = (userId: string) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        usersApi.followUser(userId)
+            .then(res => {
+                dispatch(follow(userId))
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+
+export let unFollowUser = (userId: string) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        usersApi.unFollowUser(userId)
+            .then(res => {
+                dispatch(unFollow(userId))
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+
 
 
 

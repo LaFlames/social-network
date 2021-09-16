@@ -1,5 +1,6 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import {UserPhotoType} from "./UsersReducer";
+import {profileApi} from "../api/profile-api";
 
 
 
@@ -90,4 +91,12 @@ export type ProfilePageInitialStateType = {
     posts: Array<PostType>
     newPostValue: string
     profile: ProfileType
+}
+
+
+export let getUserProfile = (userId: string) => (dispatch: Dispatch<ActionsType>) => {
+    profileApi.getUserProfileData(userId)
+        .then(res => {
+            dispatch(setUserProfile(res.data))
+        })
 }

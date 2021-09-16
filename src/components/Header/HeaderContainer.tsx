@@ -2,18 +2,12 @@ import React from "react";
 import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import Header from "./Header";
-import {AuthInitialStateType, setAuthUserData} from "../../redux/AuthReducer";
-import {authApi} from "../../api/auth-api";
+import {AuthInitialStateType, getAuthUserData} from "../../redux/AuthReducer";
 
 
 class HeaderContainer extends React.Component<AuthApiPropsType, any> {
     componentDidMount() {
-        authApi.getAuthData()
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    this.props.setAuthUserData(res.data.data)
-                }
-        })
+        this.props.getAuthUserData()
     }
     render() {
         return <>
@@ -28,7 +22,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-let connector = connect(mapStateToProps, {setAuthUserData});
+let connector = connect(mapStateToProps, {getAuthUserData});
 
 export default connector(HeaderContainer)
 

@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {Dispatch} from 'react';
+import {profileApi} from "../api/profile-api";
+import {setUserProfile} from "./ProfileReducer";
+import {authApi} from "../api/auth-api";
 
 
 let initialState: AuthInitialStateType = {
@@ -28,6 +31,17 @@ export let setAuthUserData = (data: SetAuthUserDataACType) => {
         type: "SET-AUTH-USER-DATA",
         data
     } as const
+}
+
+
+export let getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
+    authApi.getAuthData()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setAuthUserData(res.data.data))
+            }
+        })
+
 }
 
 
