@@ -1,6 +1,4 @@
 import React, {Dispatch} from 'react';
-import {profileApi} from "../api/profile-api";
-import {setUserProfile} from "./ProfileReducer";
 import {authApi} from "../api/auth-api";
 
 

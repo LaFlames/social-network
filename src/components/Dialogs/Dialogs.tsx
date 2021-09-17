@@ -3,12 +3,14 @@ import DialogItem from "./DialogItem/DialogItem";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import {DialogsInitialStateType} from "../../redux/DialogsReducer";
+import {Redirect} from "react-router-dom";
 
 
 type DialogsPropsType = {
     dialogsPage: DialogsInitialStateType
     updateNewMessageText: (text: string) => void,
     sendMessage: () => void
+    isAuth: boolean
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
