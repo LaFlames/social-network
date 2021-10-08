@@ -13,44 +13,32 @@ let initialState: DialogsInitialStateType = {
         {id: 2, message: "What's gooddie"},
         {id: 3, message: "Hello"}
     ],
-    newMessageValue: ""
 }
 
 export const DialogsReducer = (state= initialState, action: ActionsType): DialogsInitialStateType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-BODY":
-            let stateCopy = {...state}
-            stateCopy.newMessageValue = action.messageText
-            return stateCopy
-        case "SEND-NEW-MESSAGE":
-            let stateCopyy = {...state}
-            let body = stateCopyy.newMessageValue
-            stateCopyy.newMessageValue = ''
-            stateCopyy.messages.push({id: 4, message: body})
-            return stateCopyy
+        case "SEND-NEW-MESSAGE": {
+            return {
+                ...state,
+                messages: [...state.messages, {id: 5, message: action.message}]
+            }
+        }
         default:
             return state
     }
 }
 
 
-
-export let updateNewMessageText = (messageText: string) => {
+export let sendMessage = (message: string) => {
     return {
-        type: "UPDATE-NEW-MESSAGE-BODY",
-        messageText: messageText
-    } as const
-}
-export let sendMessage = () => {
-    return {
-        type: "SEND-NEW-MESSAGE"
+        type: "SEND-NEW-MESSAGE", message
     } as const
 }
 
 //types
 type ActionsType =
     | ReturnType<typeof sendMessage>
-    | ReturnType<typeof updateNewMessageText>
+
 
 export type DialogItemType = {
     id: number
@@ -63,5 +51,4 @@ export type MessageType = {
 export type DialogsInitialStateType = {
     dialogs: Array<DialogItemType>
     messages: Array<MessageType>
-    newMessageValue: string
 }

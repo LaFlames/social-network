@@ -1,15 +1,7 @@
 import React from "react";
 import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {
-    follow, followUser,
-    getUsers,
-    getUsersOnPage,
-    setIsFetching,
-    toggleFollowingProgress,
-    unFollow, unFollowUser,
-    UsersInitialStateType
-} from "../../redux/UsersReducer";
+import {followUser, getUsers, getUsersOnPage, unFollowUser, UsersInitialStateType} from "../../redux/UsersReducer";
 import Users from "./Users";
 import {Preloader} from "../Preloader/Preloader";
 

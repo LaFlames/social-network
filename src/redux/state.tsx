@@ -1,8 +1,7 @@
 import {ProfileReducer} from "./ProfileReducer"
 import {
     DialogsReducer,
-    sendMessage,
-    updateNewMessageText
+    sendMessage
 } from "./DialogsReducer";
 
 

@@ -10,8 +10,8 @@ let initialState: ProfilePageInitialStateType = {
         {id: 2, message: "How arr you?", like: 122},
         {id: 3, message: "Goodbye", like: 81}
     ],
-    newPostValue: "",
-    profile: null
+    profile: null,
+    status: ""
 }
 
 export const ProfileReducer = (state = initialState, action: ActionsType): ProfilePageInitialStateType => {
@@ -22,19 +22,16 @@ export const ProfileReducer = (state = initialState, action: ActionsType): Profi
                 message: action.postMessage,
                 like: 0
             }
-            let stateCopy = {...state}
-            stateCopy.posts = [...state.posts]
-            stateCopy.posts.push(newPost)
-            stateCopy.newPostValue = ""
-            return stateCopy
-        }
-        case "UPDATE-NEW-POST-TEXT": {
-            let stateCopy = {...state}
-            stateCopy.newPostValue = action.newText
-            return stateCopy
+            return {
+                ...state,
+                posts: [newPost, ...state.posts]
+            }
         }
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
+        }
+        case "CHANGE-PROFILE-STATUS": {
+            return {...state, status: action.status}
         }
         default:
             return state
@@ -47,23 +44,25 @@ export let addPost = (postMessage: string) => {
         postMessage
     } as const
 }
-export let updateNewPostText = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText
-    } as const
-}
 export let setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET-USER-PROFILE',
         profile
     } as const
 }
+export let setProfileStatus = (status: string) => {
+    return {
+        type: 'CHANGE-PROFILE-STATUS',
+        status
+    } as const
+}
+
 
 //types
-type ActionsType = ReturnType<typeof addPost>
-    | ReturnType<typeof updateNewPostText>
+type ActionsType =
+    | ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setProfileStatus>
 export type ProfileType = {
     aboutMe: string,
     contacts: {
@@ -89,8 +88,8 @@ export type PostType = {
 }
 export type ProfilePageInitialStateType = {
     posts: Array<PostType>
-    newPostValue: string
     profile: ProfileType
+    status: string
 }
 
 
@@ -98,5 +97,17 @@ export let getUserProfile = (userId: string) => (dispatch: Dispatch<ActionsType>
     profileApi.getUserProfileData(userId)
         .then(res => {
             dispatch(setUserProfile(res.data))
+        })
+    profileApi.getUserProfileStatus(userId)
+        .then(res => {
+            dispatch(setProfileStatus(res.data))
+        })
+}
+export let updateUserProfileStatus = (status: string) => (dispatch: Dispatch<ActionsType>) => {
+    profileApi.updateUserProfileStatus(status)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setProfileStatus(status))
+            }
         })
 }

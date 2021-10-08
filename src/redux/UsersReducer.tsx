@@ -12,8 +12,8 @@ type ActionsType =
     | ReturnType<typeof toggleFollowingProgress>
 
 export type UserPhotoType = {
-    small: string | null,
-    large: string | null
+    small: string | undefined,
+    large: string | undefined
 }
 export type UserType = {
     name: string,
